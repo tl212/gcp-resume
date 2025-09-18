@@ -1,0 +1,14 @@
+yaml
+
+name: Deploy to GCP
+on:
+  workflow_dispatch: # only run manually, not on every push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Not config yet
+        run: echo "Deployment will be conf later"
+  
+  
