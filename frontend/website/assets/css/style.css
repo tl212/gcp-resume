@@ -70,6 +70,19 @@ body {
     display: block !important;
   }
   
+  /* Fix Bootstrap column overflow issues */
+  .col-lg-4, .col-lg-6, .col-lg-8, .col-md-6 {
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+  
+  /* Ensure images never exceed their container */
+  div[class*="col-"] img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  
   html body .container .img-fluid,
   html body .container img {
     max-width: 100% !important;
