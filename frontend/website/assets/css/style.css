@@ -41,6 +41,23 @@ body {
     height: auto !important;
   }
   
+  /* Fix for content sections and boxes */
+  .resume-item,
+  .section-title,
+  .content,
+  .col-lg-8,
+  .col-lg-6 {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Ensure all images in main content are responsive */
+  #main img,
+  .section img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
   a {
     color: #149ddd;
     text-decoration: none;
@@ -154,6 +171,13 @@ body {
     background: #149ddd;
     color: #fff;
     text-decoration: none;
+  }
+  
+  /* Ensure social media icons are visible */
+  #header .profile .social-links a i {
+    font-size: 18px;
+    line-height: 36px;
+    display: block;
   }
   
   #main {
@@ -272,6 +296,8 @@ body {
     height: 100vh;
     background: url("../img/hero-bg.jpg") top center;
     background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
   
   #hero:before {
@@ -333,11 +359,21 @@ body {
     /* Ensure responsive images on mobile */
     .about img {
       margin-bottom: 20px;
+      max-width: 100% !important;
+      height: auto !important;
     }
     
     .container img {
-      max-width: 100%;
-      height: auto;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    
+    /* Fix content boxes on mobile */
+    .col-lg-8,
+    .col-lg-6,
+    .col-lg-4 {
+      max-width: 100% !important;
+      padding: 10px;
     }
   }
   
@@ -385,9 +421,16 @@ body {
   # About
   --------------------------------------------------------------*/
   .about img {
-    max-width: 100%;
-    height: auto;
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
     border-radius: 6px;
+  }
+  
+  .about .col-lg-4 img {
+    max-width: 100% !important;
+    height: auto !important;
+    width: 100% !important;
   }
   
   .about .content h3 {
