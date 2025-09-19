@@ -6,15 +6,39 @@ body {
     color: #272829;
   }
 
-  /* Responsive Images */
-  .img-fluid {
-    max-width: 100%;
-    height: auto;
+  /* Responsive Images - Enhanced with higher specificity */
+  .img-fluid,
+  img.img-fluid {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
   }
   
   img {
     max-width: 100%;
     height: auto;
+  }
+  
+  /* Specific responsive image fixes */
+  .about .img-fluid,
+  .about img {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  /* Container responsive images */
+  .container img,
+  .container .img-fluid {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Testimonial images - ensure they don't break layout */
+  .testimonials img,
+  .testimonial-img {
+    max-width: 100% !important;
+    height: auto !important;
   }
   
   a {
@@ -89,7 +113,9 @@ body {
   #header .profile img {
     margin: 15px auto;
     display: block;
-    width: 120px;
+    max-width: 120px;
+    width: 100%;
+    height: auto;
     border: 8px solid #2c2f3f;
   }
   
