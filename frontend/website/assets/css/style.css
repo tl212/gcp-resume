@@ -5,6 +5,17 @@ body {
     font-family: "Open Sans", sans-serif;
     color: #272829;
   }
+
+  /* Responsive Images */
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
   
   a {
     color: #149ddd;
@@ -292,6 +303,16 @@ body {
       line-height: 24px;
       margin-bottom: 30px;
     }
+    
+    /* Ensure responsive images on mobile */
+    .about img {
+      margin-bottom: 20px;
+    }
+    
+    .container img {
+      max-width: 100%;
+      height: auto;
+    }
   }
   
   /*--------------------------------------------------------------
@@ -337,6 +358,12 @@ body {
   /*--------------------------------------------------------------
   # About
   --------------------------------------------------------------*/
+  .about img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+  
   .about .content h3 {
     font-weight: 700;
     font-size: 26px;
@@ -757,8 +784,11 @@ body {
   
   .testimonials .testimonial-item .testimonial-img {
     width: 90px;
+    height: 90px;
     border-radius: 50%;
     margin: 0 auto;
+    object-fit: cover;
+    max-width: 100%;
   }
   
   .testimonials .testimonial-item h3 {
