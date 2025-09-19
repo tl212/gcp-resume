@@ -58,6 +58,46 @@ body {
     height: auto !important;
   }
   
+  /* Ultra-high specificity fixes - Force responsive behavior */
+  html body .about .col-lg-4 img.img-fluid,
+  html body .about .col-lg-4 img,
+  html body .about img.img-fluid,
+  html body .about img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    min-width: 0 !important;
+    display: block !important;
+  }
+  
+  html body .container .img-fluid,
+  html body .container img {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+  }
+  
+  /* Force all Bootstrap columns to behave */
+  html body .col-lg-4,
+  html body .col-lg-6,
+  html body .col-lg-8 {
+    max-width: 100% !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  /* Universal image dimension reset */
+  img[src*="profile"],
+  img[src*="testimonial"],
+  img[alt=""] {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+  
   a {
     color: #149ddd;
     text-decoration: none;
@@ -175,9 +215,22 @@ body {
   
   /* Ensure social media icons are visible */
   #header .profile .social-links a i {
-    font-size: 18px;
-    line-height: 36px;
-    display: block;
+    font-size: 18px !important;
+    line-height: 36px !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+  }
+  
+  /* Force social media links to be visible */
+  html body #header .profile .social-links a {
+    display: inline-block !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: #212431 !important;
+    color: #fff !important;
+    text-align: center !important;
+    border-radius: 50% !important;
   }
   
   #main {
