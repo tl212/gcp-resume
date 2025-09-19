@@ -370,6 +370,51 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
         
+        .testimonial-container {
+            display: grid;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .testimonial-item {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ffd700;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-item::before {
+            content: "\"";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            color: #ff00ff;
+            opacity: 0.3;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #00ff41;
+            image-rendering: pixelated;
+        }
+        
+        .testimonial-text {
+            color: #00ff41;
+            font-size: 10px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -453,10 +498,9 @@
                     <img src="assets/img/profile-imgAbt.jpg" alt="Thomas Lee" style="width: 200px; height: auto; border: 4px solid #00ff41; float: left; margin-right: 20px; margin-bottom: 20px;">
                     
                     <p style="margin-bottom: 20px;">
-                        Originally spawned as a Business Growth and Revenue Specialist, I've successfully 
-                        completed the class change quest to Computer Science Wizard. Armed with dual-class 
-                        abilities in business strategy and technology, I excel at solving complex puzzles 
-                        and defeating challenging bosses (problems).
+                      Originally an adept Business Growth and Revenue Specialist, I have transitioned into the realm of Computer Science. 
+                      I am deeply invested in the synergy between business strategy and technology, driven by experiential learning, 
+                      and excel in utilizing data to unravel ambiguous challenges.
                     </p>
                     
                     <div class="equation-box">
@@ -593,6 +637,77 @@
                     <li>Engineered PID speed control using Hall effect sensors</li>
                     <li>Tech stack: C, PSoC, Socket Programming, Arduino</li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="pixel-border">
+            <h2>TESTIMONIALS</h2>
+            
+            <div class="testimonial-container">
+                <div class="testimonial-item">
+                    <div class="testimonial-header">
+                        <img src="assets/img/testimonials/testimonials-1.jpg" alt="Marcos Semola" class="testimonial-avatar">
+                        <div>
+                            <strong style="color: #ffff00;">Marcos Semola</strong>
+                            <p style="color: #00ffff; font-size: 10px;">Partner @ EY</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "I had a chance to meet Thomas long time ago when I was attending GDS events around the world. He was the delegate focal point and showed seniority and extreme commitment with the success of the project. However the best from Thomas came up years later when a Brazilian friend faces a serious issue while visiting New York and I decided to ask assistance from Thomas. He was a superman! He not just provided personal technical assistance to my friends in US but also offered personal support for weeks before it was sorted out. That was a kind of behaviour we cannot value. Thomas became a closer friend of my friend and I am proud to have had a chance to discover the second face of Thomas. A fantastic guy to always have around."
+                    </p>
+                </div>
+
+                <div class="testimonial-item">
+                    <div class="testimonial-header">
+                        <img src="assets/img/testimonials/testimonials-2.jpg" alt="Felippe Velloso" class="testimonial-avatar">
+                        <div>
+                            <strong style="color: #ffff00;">Felippe Velloso</strong>
+                            <p style="color: #00ffff; font-size: 10px;">Global Head of Growth @ Bloomberg</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "I managed Thomas for 2 years while at GDS International and I am proud to say that it was a pleasure! Thomas is a dedicated executive with vast knowledge of the Latin American market. He was a key part of my team and always delivered beyond his goals. Excellent work ethic, driven and a great team player. I believe Thomas would be a valuable asset to any global organization."
+                    </p>
+                </div>
+
+                <div class="testimonial-item">
+                    <div class="testimonial-header">
+                        <img src="assets/img/testimonials/testimonials-3.jpg" alt="Mathias Gres" class="testimonial-avatar">
+                        <div>
+                            <strong style="color: #ffff00;">Mathias Gres</strong>
+                            <p style="color: #00ffff; font-size: 10px;">Senior Business Development Manager @ Libertas Funding, LLC</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "I had the pleasure to manage Thomas during the beginning of his career at GDS. Thomas became the number one sales executive shortly after starting and remained there through his career at GDS. He is one of the hardest working people I know, once he decides to do something, he puts his heart and soul to it. I recommend Tom professionally as well as personal."
+                    </p>
+                </div>
+
+                <div class="testimonial-item">
+                    <div class="testimonial-header">
+                        <img src="assets/img/testimonials/testimonials-4.jpg" alt="Erick Rodrigues" class="testimonial-avatar">
+                        <div>
+                            <strong style="color: #ffff00;">Erick Rodrigues</strong>
+                            <p style="color: #00ffff; font-size: 10px;">Manager @ Telefonica | Vivo</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Thomas is extremely knowledgeable in his areas of expertise and contributes significantly in consulting and facilitating top management to develop business alliances. Thomas' strengths are in sales and partner management. He works with passion and massive energy to achieve great results. As a customer I really appreciate doing business with him and have recommended him to several other businesses."
+                    </p>
+                </div>
+
+                <div class="testimonial-item">
+                    <div class="testimonial-header">
+                        <img src="assets/img/testimonials/testimonials-5.jpg" alt="Mridul Pushp" class="testimonial-avatar">
+                        <div>
+                            <strong style="color: #ffff00;">Mridul Pushp</strong>
+                            <p style="color: #00ffff; font-size: 10px;">PhD in Electrical Engineering-Quantum Hardware Lab @ The University of Pennsylvania</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Thomas has a very different background from most engineers and that's why he always brings something out of the box in every project that he does. He has a highly inquisitive mind. We have had a lot of discussions about what he did and what I did and I was surprised by his eagerness to grasp ideas from another domain and apply it in his area. I am certain that with the problem solving abilities that I have seen first hand in Thomas, his eagerness to engage with new material and learn about the world, and an almost unmatched grit to understand and solve the problem; he will take any organization to its desired goals."
+                    </p>
+                </div>
             </div>
         </section>
 
