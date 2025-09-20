@@ -1,13 +1,16 @@
 import unittest
 import json
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, MagicMock
 import sys
 import os
 
 # add backend to path BEFORE importing from it << Fix 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend')))
 
-from main import app, visitor_counter
+# Mock the Firestore client before importing main to avoid credential issues in CI/CD
+with patch('google.cloud.firestore.Client') as mock_firestore:
+    mock_firestore.return_value = MagicMock()
+    from main import app, visitor_counter
 
 class TestVisitorCounter(unittest.TestCase):
     def setUp(self):
