@@ -44,7 +44,7 @@ class TestIntegration(unittest.TestCase):
     # test CORS preflight request
     def test_cors_preflight_request(self):
         response = requests.options(self.function_url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 204)
         self.assertIn('Access-Control-Allow-Origin', response.headers)
     
 if __name__ == '__main__':
