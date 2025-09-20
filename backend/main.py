@@ -3,6 +3,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from google.cloud import firestore
 
+# Create Flask app instance (needed for testing)
+app = Flask(__name__)
+CORS(app)
+
 # initialize firestore client (automatically uses current's project)
 db = firestore.Client()
 

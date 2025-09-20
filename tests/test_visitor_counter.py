@@ -3,10 +3,11 @@ import json
 from unittest.mock import Mock, patch
 import sys
 import os
-from main import visitor_counter
 
-#add backend to path
+# add backend to path BEFORE importing from it << Fix 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend')))
+
+from main import app, visitor_counter
 
 class TestVisitorCounter(unittest.TestCase):
     def setUp(self):
@@ -40,7 +41,8 @@ class TestVisitorCounter(unittest.TestCase):
         mock_db.collection.return_value = mock_collection
 
         #call visitor_counter
-        response = visitor_counter(self.mock_request)
+        with app.app_context():
+            response = visitor_counter(self.mock_request)
         body = json.loads(response[0].get_data(as_text=True))
 
         #assert response
@@ -56,7 +58,7 @@ class TestVisitorCounter(unittest.TestCase):
         
         #mock Firestore for new visitor
         mock_doc = Mock()
-        mock_doc.exists = Mock(return_value=False)
+        mock_doc.exists = False
         
         mock_ref = Mock()
         mock_ref.get.return_value = mock_doc
@@ -68,7 +70,8 @@ class TestVisitorCounter(unittest.TestCase):
         mock_db.collection.return_value = mock_collection
         
         # call visitor_counter
-        response = visitor_counter(self.mock_request)
+        with app.app_context():
+            response = visitor_counter(self.mock_request)
         body = json.loads(response[0].get_data(as_text=True))
         
         # assert response
@@ -85,7 +88,8 @@ class TestVisitorCounter(unittest.TestCase):
         mock_db.collection.side_effect = Exception("Database error")
         
         # call visitor_counter
-        response = visitor_counter(self.mock_request)
+        with app.app_context():
+            response = visitor_counter(self.mock_request)
         body = json.loads(response[0].get_data(as_text=True))
 
         # assert response
