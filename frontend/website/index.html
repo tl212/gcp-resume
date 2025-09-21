@@ -799,12 +799,11 @@
         </footer>
     </div>
 
+    <!-- include visitor counter script -->
+    <script src="assets/js/visitorCount.js"></script>
+    
     <script>
-        // Visitor counter with retro number formatting
-        let count = localStorage.getItem('visitorCount') || 0;
-        count++;
-        localStorage.setItem('visitorCount', count);
-        document.getElementById('visitorCount').textContent = count.toString().padStart(5, '0');
+        // Visitor counter will be loaded by visitorCount.js from backend
         
         // Add some retro sound effects simulation with console logs
         console.log('%c🎮 PLAYER HAS ENTERED THE GAME! 🎮', 'color: #00ff41; font-size: 20px; font-weight: bold;');

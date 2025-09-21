@@ -1,26 +1,22 @@
-// visitorCount();
-
-// async function visitorCount() {
-//     try {
-//         const response = await fetch('https://backend-msvsj56xlq-uk.a.run.app/count');
-//         const data = await response.json();
-//         console.log(data);
-//         document.getElementById('count').innerHTML = data.count;
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Assuming you're fetching the visitor count from your backend
-    fetch('https://app-msvsj56xlq-uk.a.run.app/count', { method: 'POST' })
+    // fetch the visitor count from the backend
+    fetch('https://visitor-counter-uasgf6ueta-uc.a.run.app', { method: 'POST' })
         .then(response => response.json())
         .then(data => {
-            const visitorCountElement = document.querySelector('.visitorCounter');
+            // update the visitor counter element with retro formatting
+            const visitorCountElement = document.getElementById('visitorCount');
             if (visitorCountElement) {
-                visitorCountElement.innerHTML = data.count;
+                // format the count with leading zeros for retro look
+                const formattedCount = data.count.toString().padStart(5, '0');
+                visitorCountElement.textContent = formattedCount;
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error fetching visitor count:', error);
+            // fallback display if backend fails
+            const visitorCountElement = document.getElementById('visitorCount');
+            if (visitorCountElement) {
+                visitorCountElement.textContent = '-----';
+            }
+        });
 });
