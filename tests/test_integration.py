@@ -19,21 +19,26 @@ class TestIntegration(unittest.TestCase):
         self.assertIsInstance(data['count'], int)
         self.assertGreater(data['count'], 0)
 
-    # test that count increments on subsequent requests
+    # test that count behavior is consistent for same IP
     def test_cloud_function_increments_count(self):
 
         # first call 
         response_one = requests.get(self.function_url)
-        count_one = response_one.json()['count']
+        data_one = response_one.json()
+        count_one = data_one['count']
 
         # small delay
         time.sleep(1)
 
-        # second call
+        # second call from same IP should return same count (not increment)
         response_two = requests.get(self.function_url)
-        count_two = response_two.json()['count']
+        data_two = response_two.json()
+        count_two = data_two['count']
 
-        self.assertEqual(count_two, count_one + 1)
+        # since both requests come from the same IP, count should not increment
+        self.assertEqual(count_two, count_one)
+        # second request should indicate it's not a new visitor
+        self.assertEqual(data_two['new_visitor'], False)
 
     # test that website loads and increments count
     def test_website_loads_and_increments_count(self):
