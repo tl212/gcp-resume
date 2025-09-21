@@ -28,18 +28,34 @@ class TestVisitorCounter(unittest.TestCase):
     #test visitor counter increment 
     def test_visitor_counter_increment(self, mock_db):
         self.mock_request.method = 'GET'
+        self.mock_request.remote_addr = '192.168.1.1'
 
-        #mock firestore responses
-        mock_doc = Mock()
-        mock_doc.exists.return_value = True
-        mock_doc.to_dict.return_value = {'count': 5}
+        # mock firestore responses for counter document
+        mock_counter_doc = Mock()
+        mock_counter_doc.exists.return_value = True
+        mock_counter_doc.to_dict.return_value = {'count': 5}
 
-        mock_ref = Mock()
-        mock_ref.get.return_value = mock_doc
-        mock_ref.set = Mock()
+        # mock firestore responses for visitors document 
+        mock_visitors_doc = Mock()
+        mock_visitors_doc.exists.return_value = True
+        mock_visitors_doc.to_dict.return_value = {'ips': ['192.168.1.2']}
+
+        mock_counter_ref = Mock()
+        mock_counter_ref.get.return_value = mock_counter_doc
+        mock_counter_ref.set = Mock()
+        
+        mock_visitors_ref = Mock()
+        mock_visitors_ref.get.return_value = mock_visitors_doc
+        mock_visitors_ref.set = Mock()
 
         mock_collection = Mock()
-        mock_collection.document.return_value = mock_ref
+        # return different refs based on document name
+        def mock_document(doc_name):
+            if doc_name == 'visitor-counter':
+                return mock_counter_ref
+            elif doc_name == 'unique-visitors':
+                return mock_visitors_ref
+        mock_collection.document.side_effect = mock_document
         
         mock_db.collection.return_value = mock_collection
 
@@ -51,24 +67,40 @@ class TestVisitorCounter(unittest.TestCase):
         #assert response
         self.assertEqual(response[1], 200)
         self.assertEqual(body['count'], 6)
-        mock_ref.set.assert_called_once()
+        self.assertEqual(body['new_visitor'], True)
+        mock_counter_ref.set.assert_called_once()
+        mock_visitors_ref.set.assert_called_once()
     
     @patch('main.db')
-
-    #test visitor counter when no previous count exists
+    # test visitor counter when no previous count exists
     def test_visitor_counter_new_visitor(self, mock_db):
         self.mock_request.method = 'GET'
+        self.mock_request.remote_addr = '192.168.1.3'
         
-        #mock Firestore for new visitor
-        mock_doc = Mock()
-        mock_doc.exists = False
+        # mock Firestore for new visitor - both documents don't exist debug 5.2
+        mock_counter_doc = Mock()
+        mock_counter_doc.exists = False
         
-        mock_ref = Mock()
-        mock_ref.get.return_value = mock_doc
-        mock_ref.set = Mock()
+        mock_visitors_doc = Mock()
+        mock_visitors_doc.exists = False
+        
+        mock_counter_ref = Mock()
+        mock_counter_ref.get.return_value = mock_counter_doc
+        mock_counter_ref.set = Mock()
+        
+        mock_visitors_ref = Mock()
+        mock_visitors_ref.get.return_value = mock_visitors_doc
+        mock_visitors_ref.set = Mock()
         
         mock_collection = Mock()
-        mock_collection.document.return_value = mock_ref
+        
+        # return different refs based on document name
+        def mock_document(doc_name):
+            if doc_name == 'visitor-counter':
+                return mock_counter_ref
+            elif doc_name == 'unique-visitors':
+                return mock_visitors_ref
+        mock_collection.document.side_effect = mock_document
         
         mock_db.collection.return_value = mock_collection
         
@@ -80,7 +112,9 @@ class TestVisitorCounter(unittest.TestCase):
         # assert response
         self.assertEqual(response[1], 200)
         self.assertEqual(body['count'], 1)
-        mock_ref.set.assert_called_once()
+        self.assertEqual(body['new_visitor'], True)
+        mock_counter_ref.set.assert_called_once()
+        mock_visitors_ref.set.assert_called_once()
     
     @patch('main.db')
     # test error handling in visitor counter
