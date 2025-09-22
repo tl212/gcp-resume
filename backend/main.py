@@ -29,9 +29,17 @@ def visitor_counter(request):
 
     try:
         # get client IP address for unique visitor tracking
-        client_ip = request.remote_addr or request.environ.get('HTTP_X_FORWARDED_FOR', 'unknown')
-        if ',' in client_ip:
-            client_ip = client_ip.split(',')[0].strip()  # Handle forwarded IPs
+        # Check multiple headers for the real client IP
+        forwarded_for = request.headers.get('X-Forwarded-For')
+        real_ip = request.headers.get('X-Real-IP')
+        
+        if forwarded_for:
+            # X-Forwarded-For can contain multiple IPs, take the first (original client)
+            client_ip = forwarded_for.split(',')[0].strip()
+        elif real_ip:
+            client_ip = real_ip.strip()
+        else:
+            client_ip = request.remote_addr or 'unknown'
         
         # reference to collections
         counter_ref = db.collection('site-stats').document('visitor-counter')
