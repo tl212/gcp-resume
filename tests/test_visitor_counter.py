@@ -7,7 +7,7 @@ import os
 # add backend to path BEFORE importing from it << Fix 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend')))
 
-# Mock the Firestore client before importing main to avoid credential issues in CI/CD
+# mock the Firestore client before importing main to avoid credential issues in CI/CD
 with patch('google.cloud.firestore.Client') as mock_firestore:
     mock_firestore.return_value = MagicMock()
     from main import app, visitor_counter
@@ -29,6 +29,8 @@ class TestVisitorCounter(unittest.TestCase):
     def test_visitor_counter_increment(self, mock_db):
         self.mock_request.method = 'GET'
         self.mock_request.remote_addr = '192.168.1.1'
+        self.mock_request.headers = Mock()
+        self.mock_request.headers.get.return_value = None  # No X-Forwarded-For or X-Real-IP
 
         # mock firestore responses for counter document
         mock_counter_doc = Mock()
@@ -60,7 +62,7 @@ class TestVisitorCounter(unittest.TestCase):
         mock_db.collection.return_value = mock_collection
 
         #call visitor_counter
-        with app.app_context():
+        with app.app_context(), patch('main.firestore.SERVER_TIMESTAMP', 'mocked_timestamp'):
             response = visitor_counter(self.mock_request)
         body = json.loads(response[0].get_data(as_text=True))
 
@@ -76,6 +78,8 @@ class TestVisitorCounter(unittest.TestCase):
     def test_visitor_counter_new_visitor(self, mock_db):
         self.mock_request.method = 'GET'
         self.mock_request.remote_addr = '192.168.1.3'
+        self.mock_request.headers = Mock()
+        self.mock_request.headers.get.return_value = None  # No X-Forwarded-For or X-Real-IP
         
         # mock Firestore for new visitor - both documents don't exist debug 5.2
         mock_counter_doc = Mock()
@@ -105,7 +109,7 @@ class TestVisitorCounter(unittest.TestCase):
         mock_db.collection.return_value = mock_collection
         
         # call visitor_counter
-        with app.app_context():
+        with app.app_context(), patch('main.firestore.SERVER_TIMESTAMP', 'mocked_timestamp'):
             response = visitor_counter(self.mock_request)
         body = json.loads(response[0].get_data(as_text=True))
         
