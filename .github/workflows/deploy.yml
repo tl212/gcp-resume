@@ -128,6 +128,13 @@ jobs:
     - name: Deploy Frontend to Cloud Storage
       run: |
         gsutil -m rsync -r -d frontend/website gs://${{ env.BUCKET_NAME }}/
+    
+    - name: Invalidate CDN Cache
+      run: |
+        gcloud compute url-maps invalidate-cdn-cache resume-url-map \
+          --path "/*" \
+          --project ${{ env.PROJECT_ID }} \
+          --quiet
 
   deploy-function:
     name: Deploy Cloud Function
