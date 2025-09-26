@@ -53,11 +53,13 @@ void loop() {
     if (isValidNumber(input)) {
       long newCount = input.toInt();
       
+      // always update timestamp when receiving valid data
+      lastUpdateTime = millis();
+      
       // update count if it changed
       if (newCount != currentCount) {
         previousCount = currentCount;
         currentCount = newCount;
-        lastUpdateTime = millis();
         
         // update display with animation if count increased
         if (currentCount > previousCount) {
@@ -65,11 +67,11 @@ void loop() {
         } else {
           updateDisplay();
         }
-        
-        // send confirmation back to Python
-        Serial.print("OK:");
-        Serial.println(currentCount);
       }
+      
+      // always send confirmation back to Python
+      Serial.print("OK:");
+      Serial.println(newCount);
     }
     // handle special commands
     else if (input == "PING") {
