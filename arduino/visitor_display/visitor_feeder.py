@@ -8,6 +8,8 @@ import serial
 import requests
 import time
 import sys
+import subprocess
+import os
 from datetime import datetime
 
 # Configuration
@@ -15,6 +17,37 @@ API_URL = "https://visitor-counter-uasgf6ueta-uc.a.run.app"
 CHECK_INTERVAL = 10  # Seconds between API checks
 SERIAL_BAUD = 9600
 SERIAL_TIMEOUT = 2
+
+# sound configuration
+SOUND_ENABLED = True # set to false to display all sounds
+SOUND_FOR_EVERY_VISITOR = True
+SOUND_FOR_LOST_CONNECTION = True # play when connection is lost
+SOUND_FOR_SUCESSFUL_CONNECTION = True # play sound when connection is restore or when connection happens in anyway
+
+def play_sound(sound_type="default"):
+    # play notification sounds using Mac system sounds
+    if not SOUND_ENABLED:
+        return
+    
+    sound_files = {
+        "new_visitor": "/System/Library/Sounds/Glass.aiff",
+        "milestone": "/System/Library/Sounds/Hero.aiff",
+        "connection_success": "/System/Library/Sounds/Blow.aiff",
+        "connection_lost": "/System/Library/Sounds/Sosumi.aiff",
+        "startup": "/System/Library/Sounds/Purr.aiff",
+        "default": "/System/Library/Sounds/Pop.aiff"
+    }
+    
+    sound_file = sound_files.get(sound_type, sound_files["default"])
+    
+    try:
+        # use subprocess to play sound in background
+        subprocess.Popen(['afplay', sound_file], 
+                        stdout=subprocess.DEVNULL, 
+                        stderr=subprocess.DEVNULL)
+    except Exception as e:
+        # silently ignore sound errors to not interrupt the main function
+        pass
 
 def find_arduino_port():
     # auto-detect arduino port
@@ -65,6 +98,8 @@ def connect_arduino(port=None):
                 line = ser.readline().decode('utf-8').strip()
                 if line == "READY":
                     print("✅ Arduino is ready!")
+                    if SOUND_FOR_SUCESSFUL_CONNECTION:
+                        play_sound("connection_success")
                     return ser
         
         print("⚠️  Arduino connected but didn't send READY signal")
@@ -115,6 +150,10 @@ def main():
     print("=" * 50)
     print(f"📊 API Endpoint: {API_URL}")
     print(f"⏱️  Update Interval: {CHECK_INTERVAL} seconds")
+    print(f"🔊 Sound Notifications: {'ON' if SOUND_ENABLED else 'OFF'}")
+    if SOUND_ENABLED:
+        print(f"   • New visitors: {'ON' if SOUND_FOR_EVERY_VISITOR else 'OFF'}")
+        print(f"   • Connection events: {'ON' if SOUND_FOR_SUCESSFUL_CONNECTION else 'OFF'}")
     print()
     
     # connect to arduino
@@ -146,10 +185,30 @@ def main():
                         change = count - last_count
                         if change > 0:
                             print(f"[{timestamp}] 🆕 New visitor! Count: {count} (+{change})")
+                            
+                            # play sound for new visitor
+                            if SOUND_FOR_EVERY_VISITOR:
+                                play_sound("new_visitor")
+                            
+                            # check for milestones and play special sound
+                            if count % 1000 == 0:
+                                print(f"[{timestamp}] 🎉 HUGE MILESTONE: {count:,} visitors! 🎆🎊🎆")
+                                play_sound("milestone")
+                            elif count % 100 == 0:
+                                print(f"[{timestamp}] 🎉 MILESTONE: {count:,} visitors! 🎆")
+                                play_sound("milestone")
+                            elif count % 50 == 0:
+                                print(f"[{timestamp}] 🎊 Nice! {count:,} visitors!")
+                                play_sound("milestone")
+                            elif count % 10 == 0:
+                                print(f"[{timestamp}] 🎈 Milestone: {count:,} visitors!")
+                                if SOUND_FOR_EVERY_VISITOR:
+                                    play_sound("milestone")
                         else:
                             print(f"[{timestamp}] 📊 Count updated: {count}")
                     else:
                         print(f"[{timestamp}] 📊 Initial count: {count}")
+                        play_sound("startup")
                     
                     # send to Arduino
                     if send_count_to_arduino(arduino, count):
