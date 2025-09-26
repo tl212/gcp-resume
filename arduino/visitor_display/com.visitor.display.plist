@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.visitor.display</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/7l33/anaconda3/bin/python3</string>
+        <string>-u</string>
+        <string>/Users/7l33/gcp_resume/gcp-resume/arduino/visitor_display/visitor_feeder.py</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/7l33/gcp_resume/gcp-resume/arduino/visitor_display</string>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+        <key>Crashed</key>
+        <true/>
+    </dict>
+    
+    <!-- Delay start to allow system USB to fully initialize -->
+    <key>StartInterval</key>
+    <integer>30</integer>
+    
+    <!-- Environment variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/7l33/anaconda3/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>PYTHONPATH</key>
+        <string>/Users/7l33/anaconda3/lib/python3.11/site-packages</string>
+    </dict>
+    
+    <!-- Logging -->
+    <key>StandardOutPath</key>
+    <string>/Users/7l33/gcp_resume/gcp-resume/arduino/visitor_display/launchagent.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/7l33/gcp_resume/gcp-resume/arduino/visitor_display/launchagent.error.log</string>
+    
+    <!-- Throttling to prevent rapid restarts -->
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+    
+    <!-- Only run when user is logged in -->
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
+</dict>
+</plist>

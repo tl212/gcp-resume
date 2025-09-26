@@ -45,9 +45,10 @@ def play_sound(sound_type="default"):
         subprocess.Popen(['afplay', sound_file], 
                         stdout=subprocess.DEVNULL, 
                         stderr=subprocess.DEVNULL)
+        print(f"    🔊 Sound played: {sound_type}")
     except Exception as e:
-        # silently ignore sound errors to not interrupt the main function
-        pass
+        # log the error for possible debugging
+        print(f"    ⚠️ Sound error ({sound_type}): {e}")
 
 def find_arduino_port():
     # auto-detect arduino port
