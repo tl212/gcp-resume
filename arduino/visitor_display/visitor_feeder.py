@@ -162,21 +162,8 @@ def main():
                 if error_count >= max_errors:
                     print(f"❌ Multiple API errors. Check your connection.")
                   
-            # check arduino connection
-            try:
-                arduino.write(b"PING\n")
-                time.sleep(0.1)
-                if arduino.in_waiting:
-                    response = arduino.readline().decode('utf-8').strip()
-                    if response != "PONG":
-                        print("⚠️  Arduino not responding to ping")
-            except:
-                print("❌ Lost connection to Arduino. Attempting to reconnect...")
-                arduino.close()
-                arduino = connect_arduino()
-                if not arduino:
-                    print("❌ Could not reconnect. Exiting.")
-                    break
+            # simple connection check - just try to stay connected
+            # removed PING check as it was causing false positives
             
             # wait before next check
             time.sleep(CHECK_INTERVAL)

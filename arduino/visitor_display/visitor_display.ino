@@ -1,22 +1,20 @@
 /*
  * Website Visitor Counter LCD Display
  * Displays visitor count from GCP Resume website on 16x2 LCD
- * 
  * Hardware: Arduino Uno + 16x2 LCD Display
  * Communication: Serial from Python script
  */
 
 #include <LiquidCrystal.h>
 
-// LCD pin connections
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+// LCD pin connections - working configuration
+LiquidCrystal lcd(4, 6, 10, 11, 12, 7);
 
 // variables
 long currentCount = 0;
 long previousCount = 0;
 unsigned long lastUpdateTime = 0;
-const unsigned long UPDATE_INTERVAL = 1000; // Check for updates every second
+const unsigned long UPDATE_INTERVAL = 1000; // check for updates every second
 
 void setup() {
   // initialize Serial communication at 9600 baud
