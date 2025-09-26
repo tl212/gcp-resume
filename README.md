@@ -38,6 +38,9 @@ arduino/            - Arduino visitor display code
 
 ## 🖥️ Arduino Visitor Display (Optional)
 
+![Arduino Visitor Display](images/hardware.jpg)
+*Real-time visitor count from my cloud resume displayed on a 16x2 LCD connected to Arduino Uno. The display updates every 10 seconds, shows the current count (1,045 visitors), and plays sound notifications on milestones.*
+
 This project includes an optional hardware component that displays the visitor count on a physical LCD display using an Arduino Uno.
 
 ### Hardware Requirements

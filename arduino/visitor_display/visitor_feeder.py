@@ -173,11 +173,26 @@ def main():
         while True:
             # get current visitor count
             count, is_new = get_visitor_count()
-            
+
             if count is not None:
                 error_count = 0  # reset error counter
-                
-                # check if count changed
+
+                # ALWAYS send to arduino, even if count does not change
+                if not send_count_to_arduino(arduino, count):
+                    print("⚠️  Failed to send count to Arduino")
+                    # try to reconnect
+                    print("🔄 Attempting to reconnect to Arduino...")
+                    try:
+                        arduino.close()
+                    except:
+                        pass
+                    time.sleep(2)
+                    arduino = connect_arduino()
+                    if arduino:
+                        print("✅ Reconnected!")
+                        send_count_to_arduino(arduino, count)
+
+                # check if count changed for notifications/sounds
                 if count != last_count:
                     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     
@@ -210,11 +225,7 @@ def main():
                         print(f"[{timestamp}] 📊 Initial count: {count}")
                         play_sound("startup")
                     
-                    # send to Arduino
-                    if send_count_to_arduino(arduino, count):
-                        last_count = count
-                    else:
-                        print("⚠️  Failed to send count to Arduino")
+                    last_count = count  # update last_count after notifications
                         
             else:
                 error_count += 1

@@ -18,7 +18,7 @@ case "$1" in
         fi
         
         echo "🚀 Starting visitor display..."
-        nohup python3 "$SCRIPT" > "$LOG_FILE" 2>&1 &
+        nohup python3 -u "$SCRIPT" > "$LOG_FILE" 2>&1 &
         echo $! > "$PID_FILE"
         sleep 2
         
