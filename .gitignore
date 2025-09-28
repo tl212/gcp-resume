@@ -109,3 +109,24 @@ coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
+
+# Local development files (hidden)
+backend/.main_local.py
+scripts/.view_detailed_logs.py
+arduino/visitor_display/.test_sounds.py
+
+# Visitor data exports
+visitors_export_*.json
+detailed_logs_export_*.json
+
+# Arduino logs
+arduino/visitor_display/visitor_feeder.log
+arduino/visitor_display/visitor_feeder.pid
+arduino/visitor_display/launchagent.log
+arduino/visitor_display/launchagent.error.log
+
+# Local testing scripts
+check_visitors.py
+check_visitors.sh
+show_visitor_info.py
+test_server.py
