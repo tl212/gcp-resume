@@ -23,7 +23,7 @@
             min-height: 100vh;
             font-size: 12px;
             line-height: 1.8;
-            cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC3SURBVCiRldKxDcIwEAXQF4QYgZGYgRFgBEaAEWAERoAR6CgQEhI9BV1Ex4V8ipPYsU3zlnv3/Z+dA2jbtgEQADUwAR5AD2ycc0/gBjQ551ma5nl+BnIA8jzPrbVW+r4vHMkxZDAYDFZKqQLpAbAzxowmkwlBEHi1siyL4zjOkyQxQgghhBDiS47FYnFQSkWz2cy7jqIorFarw3a7DYCQS3q9XnHUkHMcx/FhNBqFbdseXvgf+AXefzQ+0itLbgAAAABJRU5ErkJggg=='), auto;
+            cursor: default;
         }
         
         .scanlines {
@@ -151,6 +151,19 @@
         @keyframes flash {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0.3; }
+        }
+        
+        /* Link hover effects for better visibility */
+        a {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        a:hover {
+            text-decoration: underline !important;
+            text-shadow: 0 0 10px currentColor;
+            transform: scale(1.05);
+            display: inline-block;
         }
         
         h2 {
@@ -703,8 +716,8 @@
                     <div class="testimonial-header">
                         <img src="assets/img/testimonials/testimonials-1.jpg" alt="Marcos Semola" class="testimonial-avatar">
                         <div>
-                            <strong style="color: #ffff00;">Marcos Semola</strong>
-                            <p style="color: #00ffff; font-size: 10px;">Partner @ EY</p>
+                            <strong style="color: #ffff00;"><a href="https://www.linkedin.com/in/semola/" target="_blank" style="color: #ffff00; text-decoration: none;">Marcos Semola</a></strong>
+                            <p style="color: #00ffff; font-size: 10px;">Managing Director, Security Lead @ Accenture US</p>
                         </div>
                     </div>
                     <p class="testimonial-text">
@@ -716,7 +729,7 @@
                     <div class="testimonial-header">
                         <img src="assets/img/testimonials/testimonials-2.jpg" alt="Felippe Velloso" class="testimonial-avatar">
                         <div>
-                            <strong style="color: #ffff00;">Felippe Velloso</strong>
+                            <strong style="color: #ffff00;"><a href="https://www.linkedin.com/in/felippevelloso/" target="_blank" style="color: #ffff00; text-decoration: none;">Felippe Velloso</a></strong>
                             <p style="color: #00ffff; font-size: 10px;">Global Head of Growth @ Bloomberg</p>
                         </div>
                     </div>
@@ -729,7 +742,7 @@
                     <div class="testimonial-header">
                         <img src="assets/img/testimonials/testimonials-3.jpg" alt="Mathias Gres" class="testimonial-avatar">
                         <div>
-                            <strong style="color: #ffff00;">Mathias Gres</strong>
+                            <strong style="color: #ffff00;"><a href="https://www.linkedin.com/in/mathiasgrez/" target="_blank" style="color: #ffff00; text-decoration: none;">Mathias Gres</a></strong>
                             <p style="color: #00ffff; font-size: 10px;">Senior Business Development Manager @ Libertas Funding, LLC</p>
                         </div>
                     </div>
@@ -742,7 +755,7 @@
                     <div class="testimonial-header">
                         <img src="assets/img/testimonials/testimonials-4.jpg" alt="Erick Rodrigues" class="testimonial-avatar">
                         <div>
-                            <strong style="color: #ffff00;">Erick Rodrigues</strong>
+                            <strong style="color: #ffff00;"><a href="https://www.linkedin.com/in/erick-rodrigues-46aa5b/" target="_blank" style="color: #ffff00; text-decoration: none;">Erick Rodrigues</a></strong>
                             <p style="color: #00ffff; font-size: 10px;">Manager @ Telefonica | Vivo</p>
                         </div>
                     </div>
@@ -755,7 +768,7 @@
                     <div class="testimonial-header">
                         <img src="assets/img/testimonials/testimonials-5.jpg" alt="Mridul Pushp" class="testimonial-avatar">
                         <div>
-                            <strong style="color: #ffff00;">Mridul Pushp</strong>
+                            <strong style="color: #ffff00;"><a href="https://www.linkedin.com/in/mridul-pushp-366365112/" target="_blank" style="color: #ffff00; text-decoration: none;">Mridul Pushp</a></strong>
                             <p style="color: #00ffff; font-size: 10px;">PhD in Electrical Engineering-Quantum Hardware Lab @ The University of Pennsylvania</p>
                         </div>
                     </div>
