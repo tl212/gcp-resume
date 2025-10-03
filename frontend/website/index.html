@@ -73,6 +73,7 @@
             background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
             opacity: 0.1;
             animation: rainbow 3s ease-in-out infinite;
+            pointer-events: none; /* ensure overlay does not block clicks */
         }
         
         @keyframes rainbow {
